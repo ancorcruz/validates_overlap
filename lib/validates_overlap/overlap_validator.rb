@@ -21,7 +21,7 @@ class OverlapValidator < ActiveModel::EachValidator
     self.generate_overlap_sql_values(record)
     self.add_attributes(record, options[:scope]) if options && !(scope = options[:scope]).blank?
 
-    return record.class.exists?([sql_conditions, sql_values])
+    return (options[:class].constantize || record.class).exists?([sql_conditions, sql_values])
   end
 
 
